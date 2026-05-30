@@ -1,0 +1,7 @@
+# Ignore database / JSON dynamic data
+data/*
+!data/.gitkeep
+
+# Ignore user uploads
+uploads/*
+!uploads/.gitkeep
