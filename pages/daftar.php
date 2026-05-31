@@ -91,7 +91,7 @@ $ipk_eligible = $ipk_system >= 3.0;
                     <!-- Nomor HP -->
                     <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-16">
                         <label for="no_hp" class="font-bold text-base text-gray-900 md:w-44 shrink-0">Nomor Handphone</label>
-                        <input type="text" id="no_hp" name="no_hp"
+                        <input type="text" id="no_hp" name="no_hp" maxlength="12" minlength="12"
                             value="<?php echo htmlspecialchars($old['no_hp'] ?? ''); ?>"
                             placeholder="Contoh: 08123456789"
                             pattern="[0-9]+"
