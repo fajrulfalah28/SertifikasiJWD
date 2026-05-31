@@ -7,36 +7,21 @@ unset($_SESSION['errors'], $_SESSION['old']);
 // IPK random dari sistem (antara 2.50 – 4.00, 2 desimal)
 // Disimpan di session agar konsisten selama sesi berlangsung
 if (!isset($_SESSION['ipk_system'])) {
-    $ipk_raw = mt_rand(250, 400) / 100;
+    $ipk_raw = 2;//mt_rand(250, 400) / 100;
     $_SESSION['ipk_system'] = $ipk_raw;
 }
 $ipk_system = $_SESSION['ipk_system'];
 
 // Daftar beasiswa
 $daftar_beasiswa = [
-    'Beasiswa Akademik' => [
-        'syarat' => 'IPK minimal 3.5, Semester minimal 3',
-        'ipk_min' => 3.5,
-    ],
-    'Beasiswa Non-Akademik' => [
-        'syarat' => 'IPK minimal 3.0, Semester minimal 2',
-        'ipk_min' => 3.0,
-    ],
-    'Beasiswa Ekonomi (BBM)' => [
-        'syarat' => 'IPK minimal 3.0, Semester minimal 2',
-        'ipk_min' => 3.0,
-    ],
-    'Beasiswa PPA (Peningkatan Prestasi Akademik)' => [
-        'syarat' => 'IPK minimal 3.25, Semester minimal 3',
-        'ipk_min' => 3.25,
-    ],
+    'Beasiswa Akademik',
+    'Beasiswa Non-Akademik',
+    'Beasiswa Ekonomi (BBM)',
+    'Beasiswa PPA (Peningkatan Prestasi Akademik)',
 ];
 
 // Cek apakah IPK memenuhi syarat (>= 3.0)
 $ipk_eligible = $ipk_system >= 3.0;
-
-// Encode data beasiswa untuk JS
-$beasiswa_js = json_encode($daftar_beasiswa);
 ?>
 
 <div class="max-w-5xl mx-auto px-4 py-10">
@@ -184,12 +169,10 @@ $beasiswa_js = json_encode($daftar_beasiswa);
                             <?php echo !$ipk_eligible ? 'disabled' : ''; ?>
                             required>
                             <option value="" disabled <?php echo empty($old['pilihan_beasiswa']) ? 'selected' : ''; ?>>-- Pilih Jenis Beasiswa --</option>
-                            <?php foreach ($daftar_beasiswa as $nama => $info): ?>
-                                <?php if ($ipk_system >= $info['ipk_min']): ?>
-                                <option value="<?php echo htmlspecialchars($nama); ?>" <?php echo (isset($old['pilihan_beasiswa']) && $old['pilihan_beasiswa'] === $nama) ? 'selected' : ''; ?>>
-                                    <?php echo $nama . ' (Min. IPK: ' . $info['ipk_min'] . ')'; ?>
-                                </option>
-                                <?php endif; ?>
+                            <?php foreach ($daftar_beasiswa as $nama): ?>
+                            <option value="<?php echo htmlspecialchars($nama); ?>" <?php echo (isset($old['pilihan_beasiswa']) && $old['pilihan_beasiswa'] === $nama) ? 'selected' : ''; ?>>
+                                <?php echo htmlspecialchars($nama); ?>
+                            </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
